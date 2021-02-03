@@ -5,10 +5,7 @@ const client = redis.createClient('//redis-16751.c9.us-east-1-4.ec2.cloud.redisl
 
 client.on("ready", () => {
     console.log("ready");
-    Promise.resolve()
-        .then(Set())
-        .then(Get())
-        .then(Del());
+
 });
 client.on("error", (err) => {
     console.log("error " + err);
@@ -23,7 +20,7 @@ client.on("end", () => {
 
 function Set(){
     const time1= Date.now();
-    for (let k = 1; k < 10000; k++) {
+    for (let k = 1; k <= 10000; k++) {
         client.set(k, 'set'+k);
     }
     console.log(Date.now()-time1);
@@ -31,18 +28,25 @@ function Set(){
 
 function Get(){
     const time1= Date.now();
-    for (let k = 1; k < 10000; k++) {
-        client.get(k);
+    for (let k = 1; k <= 10000; k++) {
+        client.get(k/*,(err, result)=>{
+            console.log(k+':', 'err=', err, 'result=', result)}*/);
     }
     console.log(Date.now()-time1);
 }
 
 function Del(){
     const time1= Date.now();
-    for (let k = 1; k < 10000; k++) {
-        client.del(k);
+    for (let k = 1; k <= 10000; k++) {
+        client.del(k/*,(err, result)=>{
+            console.log(k+':', 'err=', err, 'result=', result)}*/);
     }
     console.log(Date.now()-time1);
 }
+
+Promise.resolve()
+    .then(Set())
+    .then(Get())
+    .then(Del());
 
 client.quit();

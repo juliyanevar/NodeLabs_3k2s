@@ -5,9 +5,6 @@ const client = redis.createClient('//redis-16751.c9.us-east-1-4.ec2.cloud.redisl
 
 client.on("ready", () => {
     console.log("ready");
-    Promise.resolve()
-        .then(Hset())
-        .then(Hget());
 });
 client.on("error", (err) => {
     console.log("error " + err);
@@ -23,7 +20,8 @@ client.on("end", () => {
 function Hset(){
     const time1= Date.now();
     for (let k = 1; k < 10000; k++) {
-        client.hset(k, '{id:'+k+', val: "val-'+k+'"}');
+        client.hset( 'number',k, JSON.stringify({id: k, val: 'val-'+k}) /*, (err, result)=>{
+            console.log(k, 'err =', err, 'result =', result)}*/);
     }
     console.log(Date.now()-time1);
 }
@@ -31,10 +29,14 @@ function Hset(){
 function Hget(){
     const time1= Date.now();
     for (let k = 1; k < 10000; k++) {
-        client.hget(k);
+        client.hget('number', k/*, (err, result)=>{
+            console.log(k+':', 'err =', err, 'result =', JSON.parse(result))}*/);
     }
     console.log(Date.now()-time1);
 }
 
+Promise.resolve()
+    .then(Hset())
+    .then(Hget());
 
 client.quit();
