@@ -21,7 +21,7 @@ function Set(){
     for (let k = 1; k <= 10000; k++) {
         client.set(k, k);
     }
-    console.log(Date.now()-time1);
+    //console.log(Date.now()-time1);
 }
 
 function Incr(){
