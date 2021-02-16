@@ -7,12 +7,23 @@ const Model = Sequelize.Model;
 
 let result = '';
 
-class FACULTY extends Model {};
-class PULPIT extends Model {};
-class TEACHER extends Model {};
-class SUBJECT extends Model {};
-class AUDITORIUM_TYPE extends Model {};
-class AUDITORIUM extends Model {};
+class FACULTY extends Model {
+};
+
+class PULPIT extends Model {
+};
+
+class TEACHER extends Model {
+};
+
+class SUBJECT extends Model {
+};
+
+class AUDITORIUM_TYPE extends Model {
+};
+
+class AUDITORIUM extends Model {
+};
 
 function internalORM(sequelize) {
     FACULTY.init(
@@ -20,7 +31,13 @@ function internalORM(sequelize) {
             FACULTY: {type: Sequelize.STRING, allowNull: false, primaryKey: true},
             FACULTY_NAME: {type: Sequelize.STRING, allowNull: false}
         },
-        {sequelize, modelName: 'FACULTY', tableName: 'FACULTY', timestamps: false}
+        {hooks: {
+                beforeCreate: (instance, options) => {
+                    console.log('---------- local faculty beforeCreate -----------'); },
+                afterCreate: (instance, options) => {
+                    console.log('---------- local faculty afterCreate ------------'); }
+            },
+            sequelize, modelName: 'FACULTY', tableName: 'FACULTY', timestamps: false}
     );
     PULPIT.init(
         {
@@ -72,7 +89,14 @@ function internalORM(sequelize) {
                 references: {model: AUDITORIUM_TYPE, key: 'AUDITORIUM_TYPE'}
             }
         },
-        {sequelize, modelName: 'AUDITORIUM', tableName: 'AUDITORIUM', timestamps: false}
+        {
+            scopes: {
+                auditoriumsgt60: {
+                    where: {AUDITORIUM_CAPACITY: {[Sequelize.Op.gt]: 60}}
+                }
+            },
+            sequelize, modelName: 'AUDITORIUM', tableName: 'AUDITORIUM', timestamps: false
+        }
     )
 };
 
@@ -96,6 +120,16 @@ sequelize.authenticate()
     .then(() => {
         console.log('Соединение с базой данных установлено');
     })
+    .then(() => {
+        return sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_COMMITTED})
+            .then(t => {
+                return AUDITORIUM.update({AUDITORIUM_CAPACITY: 0}, {transaction: t})
+                    .then((r)=>{
+                        setTimeout(()=>{return t.rollback()}, 10000);})
+                    .catch((e)=>{console.error("--rollback", e.name); return t.rollback();});
+            })
+    })
+
     .catch(err => {
         console.log('Ошибка при соединении с базой данных', err.message);
     });
@@ -126,54 +160,54 @@ let DO_GET = (req, res) => {
     let table;
     let p = url.parse(req.url).pathname;
     ORM(sequelize);
-    switch ('/' + GET_PART_FROM_URL(p, 1)){
+    switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/':
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             res.end(fs.readFileSync('./index.html'));
             break;
         case '/api':
-            switch (GET_PART_FROM_URL(p, 2)){
+            switch (GET_PART_FROM_URL(p, 2)) {
                 case 'faculties':
-                    table=FACULTY;
+                    table = FACULTY;
                     break;
                 case 'pulpits':
-                    table=PULPIT;
+                    table = PULPIT;
                     break;
                 case 'subjects':
-                    table=SUBJECT;
+                    table = SUBJECT;
                     break;
                 case 'auditoriumstypes':
-                    table=AUDITORIUM_TYPE;
+                    table = AUDITORIUM_TYPE;
                     break;
                 case 'auditoriums':
-                    table=AUDITORIUM;
+                    table = AUDITORIUM;
                     break;
                 case 'teachers':
-                    table=TEACHER;
+                    table = TEACHER;
                     break;
                 case 'auditoriumsgt60':
-                    table =AUDITORIUM;
+                    table = AUDITORIUM;
                     break;
                 default:
                     HTTP404(req, res);
                     break;
             }
-            if(table==FACULTY){
-                switch(GET_PART_FROM_URL(p,4)){
+            if (table == FACULTY) {
+                switch (GET_PART_FROM_URL(p, 4)) {
                     case 'pulpits':
                         table.hasMany(PULPIT, {as: 'faculty_pulpits', foreignKey: 'FACULTY', sourceKey: 'FACULTY'});
                         table.findAll({
-                            where:{
-                               FACULTY: GET_PART_FROM_URL(p,3)
+                            where: {
+                                FACULTY: GET_PART_FROM_URL(p, 3)
                             },
-                            include:[
+                            include: [
                                 {model: PULPIT, as: 'faculty_pulpits', required: true}
                             ]
                         })
                             .then(p => {
-                                p.forEach(elf=>{
+                                p.forEach(elf => {
                                     console.log(elf.dataValues.FACULTY, elf.dataValues.FACULTY_NAME);
-                                    elf.dataValues.faculty_pulpits.forEach(elp=>{
+                                    elf.dataValues.faculty_pulpits.forEach(elp => {
                                         console.log('--', elp.dataValues.PULPIT, elp.dataValues.PULPIT_NAME);
                                     });
                                 });
@@ -213,13 +247,11 @@ let DO_GET = (req, res) => {
                             res.end(JSON.stringify({error: String(error)}));
                         });
                 }
-            }
-            else if(GET_PART_FROM_URL(p, 2)=='auditoriumsgt60'){
-                table.findAll({
-                    where:{AUDITORIUM_CAPACITY: {[Sequelize.Op.gt]:60}}
-                }).then(records => records.forEach(rec=>{console.log(rec.dataValues);}))
-            }
-            else{
+            } else if (GET_PART_FROM_URL(p, 2) == 'auditoriumsgt60') {
+                table.scope('auditoriumsgt60').findAll().then(records => records.forEach(rec => {
+                    console.log(rec.dataValues);
+                }))
+            } else {
                 table.findAll().then(records => {
                     res.end(JSON.stringify(records));
                 }).catch(error => {
@@ -230,15 +262,15 @@ let DO_GET = (req, res) => {
             break;
 
         default:
-            HTTP404(req,res);
+            HTTP404(req, res);
             break;
     }
 }
 
-let DO_POST=(req, res) => {
+let DO_POST = (req, res) => {
     let p = url.parse(req.url).pathname;
     ORM(sequelize);
-    switch ('/' + GET_PART_FROM_URL(p, 1)){
+    switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/api':
             let body = ' ';
             req.on('data', chunk => {
@@ -246,39 +278,61 @@ let DO_POST=(req, res) => {
                 body = JSON.parse(body);
             });
             req.on('end', async () => {
-            switch (GET_PART_FROM_URL(p, 2)){
-                case 'faculties':
-                    FACULTY.create({FACULTY: body.FACULTY, FACULTY_NAME: body.FACULTY_NAME}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                case 'pulpits':
-                PULPIT.create({PULPIT: body.PULPIT, PULPIT_NAME: body.PULPIT_NAME, FACULTY: body.FACULTY}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                case 'subjects':
-                    SUBJECT.create({SUBJECT: body.SUBJECT, SUBJECT_NAME: body.SUBJECT_NAME, PULPIT: body.PULPIT}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                case 'auditoriumstypes':
-                    AUDITORIUM_TYPE.create({AUDITORIUM_TYPE: body.AUDITORIUM_TYPE, AUDITORIUM_TYPENAME: body.AUDITORIUM_TYPENAME}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                case 'auditoriums':
-                    AUDITORIUM.create({AUDITORIUM: body.AUDITORIUM, AUDITORIUM_NAME: body.AUDITORIUM_NAME, AUDITORIUM_CAPACITY: body.AUDITORIUM_CAPACITY, AUDITORIUM_TYPE: body.AUDITORIUM_TYPE}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                case 'teachers':
-                    TEACHER.create({TEACHER: body.TEACHER, TEACHER_NAME: body.TEACHER_NAME, PULPIT: body.PULPIT}).catch(err=>console.log('Error: ', err.message));
-                    break;
-                default:
-                    HTTP404(req, res);
-                    break;
-            }
-                    res.end();
+                switch (GET_PART_FROM_URL(p, 2)) {
+                    case 'faculties':
+                        FACULTY.create({
+                            FACULTY: body.FACULTY,
+                            FACULTY_NAME: body.FACULTY_NAME
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    case 'pulpits':
+                        PULPIT.create({
+                            PULPIT: body.PULPIT,
+                            PULPIT_NAME: body.PULPIT_NAME,
+                            FACULTY: body.FACULTY
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    case 'subjects':
+                        SUBJECT.create({
+                            SUBJECT: body.SUBJECT,
+                            SUBJECT_NAME: body.SUBJECT_NAME,
+                            PULPIT: body.PULPIT
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    case 'auditoriumstypes':
+                        AUDITORIUM_TYPE.create({
+                            AUDITORIUM_TYPE: body.AUDITORIUM_TYPE,
+                            AUDITORIUM_TYPENAME: body.AUDITORIUM_TYPENAME
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    case 'auditoriums':
+                        AUDITORIUM.create({
+                            AUDITORIUM: body.AUDITORIUM,
+                            AUDITORIUM_NAME: body.AUDITORIUM_NAME,
+                            AUDITORIUM_CAPACITY: body.AUDITORIUM_CAPACITY,
+                            AUDITORIUM_TYPE: body.AUDITORIUM_TYPE
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    case 'teachers':
+                        TEACHER.create({
+                            TEACHER: body.TEACHER,
+                            TEACHER_NAME: body.TEACHER_NAME,
+                            PULPIT: body.PULPIT
+                        }).catch(err => console.log('Error: ', err.message));
+                        break;
+                    default:
+                        HTTP404(req, res);
+                        break;
+                }
+                res.end();
 
             });
-
 
 
             break;
 
         default:
-            HTTP404(req,res);
+            HTTP404(req, res);
             break;
     }
 }
@@ -293,30 +347,34 @@ let DO_PUT = (req, res) => {
                 body = JSON.parse(body);
             });
             req.on('end', async () => {
-                switch (GET_PART_FROM_URL(p, 2)){
+                switch (GET_PART_FROM_URL(p, 2)) {
                     case 'faculties':
-                        FACULTY.update({ FACULTY_NAME: body.FACULTY_NAME},
-                            {where: {FACULTY: body.FACULTY}}).catch(err=>console.log('Error: ', err.message));
+                        FACULTY.update({FACULTY_NAME: body.FACULTY_NAME},
+                            {where: {FACULTY: body.FACULTY}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'pulpits':
                         PULPIT.update({PULPIT_NAME: body.PULPIT_NAME, FACULTY: body.FACULTY},
-                            {where:{PULPIT: body.PULPIT}}).catch(err=>console.log('Error: ', err.message));
+                            {where: {PULPIT: body.PULPIT}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'subjects':
                         SUBJECT.update({SUBJECT_NAME: body.SUBJECT_NAME, PULPIT: body.PULPIT},
-                            {where: {SUBJECT: body.SUBJECT}}).catch(err=>console.log('Error: ', err.message));
+                            {where: {SUBJECT: body.SUBJECT}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'auditoriumstypes':
                         AUDITORIUM_TYPE.update({AUDITORIUM_TYPENAME: body.AUDITORIUM_TYPENAME},
-                            {where: {AUDITORIUM_TYPE: body.AUDITORIUM_TYPE}}).catch(err=>console.log('Error: ', err.message));
+                            {where: {AUDITORIUM_TYPE: body.AUDITORIUM_TYPE}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'auditoriums':
-                        AUDITORIUM.update({AUDITORIUM_NAME: body.AUDITORIUM_NAME, AUDITORIUM_CAPACITY: body.AUDITORIUM_CAPACITY, AUDITORIUM_TYPE: body.AUDITORIUM_TYPE},
-                            {where: {AUDITORIUM: body.AUDITORIUM}}).catch(err=>console.log('Error: ', err.message));
+                        AUDITORIUM.update({
+                                AUDITORIUM_NAME: body.AUDITORIUM_NAME,
+                                AUDITORIUM_CAPACITY: body.AUDITORIUM_CAPACITY,
+                                AUDITORIUM_TYPE: body.AUDITORIUM_TYPE
+                            },
+                            {where: {AUDITORIUM: body.AUDITORIUM}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'teachers':
                         TEACHER.update({TEACHER_NAME: body.TEACHER_NAME, PULPIT: body.PULPIT},
-                            {where: {TEACHER: body.TEACHER}}).catch(err=>console.log('Error: ', err.message));
+                            {where: {TEACHER: body.TEACHER}}).catch(err => console.log('Error: ', err.message));
                         break;
                     default:
                         HTTP404(req, res);
@@ -341,25 +399,25 @@ let DO_DELETE = (req, res) => {
                 body = JSON.parse(body);
             });
             req.on('end', async () => {
-                switch (GET_PART_FROM_URL(p, 2)){
+                switch (GET_PART_FROM_URL(p, 2)) {
                     case 'faculties':
-                        FACULTY.destroy({where: {FACULTY: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        FACULTY.destroy({where: {FACULTY: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'pulpits':
                         console.log(body);
-                        PULPIT.destroy({where: {PULPIT: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        PULPIT.destroy({where: {PULPIT: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'subjects':
-                        SUBJECT.destroy({where: {SUBJECT: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        SUBJECT.destroy({where: {SUBJECT: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'auditoriumstypes':
-                        AUDITORIUM_TYPE.destroy({where: {AUDITORIUM_TYPE: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        AUDITORIUM_TYPE.destroy({where: {AUDITORIUM_TYPE: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'auditoriums':
-                        AUDITORIUM.destroy({where:{AUDITORIUM: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        AUDITORIUM.destroy({where: {AUDITORIUM: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     case 'teachers':
-                        TEACHER.destroy({where:{TEACHER: GET_PART_FROM_URL(p, 3)}}).catch(err=>console.log('Error: ', err.message));
+                        TEACHER.destroy({where: {TEACHER: GET_PART_FROM_URL(p, 3)}}).catch(err => console.log('Error: ', err.message));
                         break;
                     default:
                         HTTP404(req, res);
