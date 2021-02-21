@@ -19,8 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ca4291c-071a-4909-828f-a173d0acf2e9" name="Default Changelist" comment="lab18 3 tasks">
-      <change afterPath="$PROJECT_DIR$/lab18/18-01.2.js" afterDir="false" />
+    <list default="true" id="2ca4291c-071a-4909-828f-a173d0acf2e9" name="Default Changelist" comment="lab18 without transaction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab18/18-01.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab18/18-01.js" afterDir="false" />
     </list>
@@ -100,7 +99,8 @@
       <workItem from="1612948237811" duration="2478000" />
       <workItem from="1613020329680" duration="8055000" />
       <workItem from="1613378893668" duration="5565000" />
-      <workItem from="1613458582080" duration="4573000" />
+      <workItem from="1613458582080" duration="5237000" />
+      <workItem from="1613925411470" duration="6829000" />
     </task>
     <task id="LOCAL-00001" summary="lab17">
       <created>1612282082180</created>
@@ -123,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613034978740</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="lab18 without transaction">
+      <created>1613492608669</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613492608670</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,7 +152,8 @@
     <MESSAGE value="lab17" />
     <MESSAGE value="fixed lab17" />
     <MESSAGE value="lab18 3 tasks" />
-    <option name="LAST_COMMIT_MESSAGE" value="lab18 3 tasks" />
+    <MESSAGE value="lab18 without transaction" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab18 without transaction" />
   </component>
   <component name="WindowStateProjectService">
     <state x="531" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1613379001490">
@@ -164,22 +172,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="138" y="117" key="Github.UntrackedFilesDialog/0.0.1536.824@0.0.1536.824" timestamp="1612282057985" />
-    <state width="745" height="203" key="GridCell.Tab.0.bottom" timestamp="1613462075186">
+    <state width="916" height="203" key="GridCell.Tab.0.bottom" timestamp="1613932912229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="745" height="203" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613462075186" />
-    <state width="745" height="203" key="GridCell.Tab.0.center" timestamp="1613462075186">
+    <state width="916" height="203" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613932912229" />
+    <state width="916" height="203" key="GridCell.Tab.0.center" timestamp="1613932912228">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="745" height="203" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613462075186" />
-    <state width="745" height="203" key="GridCell.Tab.0.left" timestamp="1613462075186">
+    <state width="916" height="203" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613932912228" />
+    <state width="916" height="203" key="GridCell.Tab.0.left" timestamp="1613932912228">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="745" height="203" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613462075186" />
-    <state width="745" height="203" key="GridCell.Tab.0.right" timestamp="1613462075186">
+    <state width="916" height="203" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613932912228" />
+    <state width="916" height="203" key="GridCell.Tab.0.right" timestamp="1613932912229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="745" height="203" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613462075186" />
+    <state width="916" height="203" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613932912229" />
     <state width="745" height="261" key="GridCell.Tab.1.bottom" timestamp="1612987266672">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -228,9 +236,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="745" height="261" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1612987266672" />
-    <state x="0" y="145" key="Vcs.Push.Dialog.v2" timestamp="1613034985657">
+    <state x="0" y="145" key="Vcs.Push.Dialog.v2" timestamp="1613492617915">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="0" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1613034985657" />
+    <state x="0" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1613492617915" />
   </component>
 </project>

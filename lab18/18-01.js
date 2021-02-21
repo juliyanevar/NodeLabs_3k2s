@@ -5,7 +5,6 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('NJV', 'sa', '123456', {host: 'DESKTOP-QCIHU10', dialect: 'mssql'});
 const Model = Sequelize.Model;
 
-let result = '';
 
 class FACULTY extends Model {
 };
@@ -104,17 +103,7 @@ ORM = (s) => {
     internalORM(s);
     return {FACULTY, PULPIT, TEACHER, SUBJECT, AUDITORIUM_TYPE, AUDITORIUM};
 }
-
-// const print = (p, res) => {
-//     result = '';
-//     let k = 0;
-//     p.forEach(x => {
-//         x=JSON.stringify(x);
-//         result += `${++k}: ${x}<br/>`
-//     });
-//     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-//     res.end(result);
-// }
+ORM(sequelize);
 
 sequelize.authenticate()
     .then(() => {
@@ -123,13 +112,12 @@ sequelize.authenticate()
     .then(() => {
         return sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_COMMITTED})
             .then(t => {
-                return AUDITORIUM.update({AUDITORIUM_CAPACITY: 0}, {transaction: t})
+                return AUDITORIUM.update({AUDITORIUM_CAPACITY: 0}, {where:{AUDITORIUM: {[Sequelize.Op.ne]: "null"}},transaction: t})
                     .then((r)=>{
                         setTimeout(()=>{return t.rollback()}, 10000);})
-                    .catch((e)=>{console.error("--rollback", e.name); return t.rollback();});
+                    .catch((e)=>{console.error("--rollback", e.name, e.message); return t.rollback();});
             })
     })
-
     .catch(err => {
         console.log('Ошибка при соединении с базой данных', err.message);
     });
@@ -158,8 +146,7 @@ let reqestHandler = (req, res) => {
 
 let DO_GET = (req, res) => {
     let table;
-    let p = url.parse(req.url).pathname;
-    ORM(sequelize);
+    let p = req.url;
     switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/':
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
@@ -248,9 +235,8 @@ let DO_GET = (req, res) => {
                         });
                 }
             } else if (GET_PART_FROM_URL(p, 2) == 'auditoriumsgt60') {
-                table.scope('auditoriumsgt60').findAll().then(records => records.forEach(rec => {
-                    console.log(rec.dataValues);
-                }))
+                table.scope('auditoriumsgt60').findAll().then(records => res.end(JSON.stringify(records)))
+
             } else {
                 table.findAll().then(records => {
                     res.end(JSON.stringify(records));
@@ -268,8 +254,7 @@ let DO_GET = (req, res) => {
 }
 
 let DO_POST = (req, res) => {
-    let p = url.parse(req.url).pathname;
-    ORM(sequelize);
+    let p = req.url;
     switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/api':
             let body = ' ';
@@ -338,7 +323,7 @@ let DO_POST = (req, res) => {
 }
 
 let DO_PUT = (req, res) => {
-    let p = url.parse(req.url, true).pathname;
+    let p = req.url;
     switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/api':
             let body = ' ';
@@ -390,7 +375,7 @@ let DO_PUT = (req, res) => {
 };
 
 let DO_DELETE = (req, res) => {
-    let p = url.parse(req.url, true).pathname;
+    let p = req.url;
     switch ('/' + GET_PART_FROM_URL(p, 1)) {
         case '/api':
             let body = ' ';
