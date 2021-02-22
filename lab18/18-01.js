@@ -200,32 +200,6 @@ let DO_GET = (req, res) => {
                                 });
                             });
                         break;
-                    // case 'teachers':
-                    //     table.hasMany(PULPIT, {as: 'faculty_pulpits', foreignKey: 'FACULTY', sourceKey: 'FACULTY'});
-                    //     PULPIT.hasMany(TEACHER, {as: 'pulpit_teachers', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
-                    //     table.findAll({
-                    //         // where:{
-                    //         //     FACULTY: GET_PART_FROM_URL(p,3)
-                    //         // },
-                    //         include:[
-                    //             {model: PULPIT, as: 'faculty_pulpits', required: true}
-                    //         ],
-                    //         include:[
-                    //             {model: TEACHER, as: 'pulpit_teachers', required: true}
-                    //         ]
-                    //     })
-                    //         .then(p => {
-                    //             p.forEach(elf=>{
-                    //                 console.log(elf.dataValues.FACULTY, elf.dataValues.FACULTY_NAME);
-                    //                 elf.dataValues.faculty_pulpits.forEach(elp=>{
-                    //                     console.log('--', elp.dataValues.PULPIT, elp.dataValues.PULPIT_NAME);
-                    //                     elp.dataValues.pulpit_teachers.forEach(elt => {
-                    //                         console.log('----', elt.dataValues.TEACHER, elt.dataValues.TEACHER_NAME);
-                    //                     })
-                    //                 });
-                    //             });
-                    //         });
-                    //     break;
                     default:
                         table.findAll().then(records => {
                             res.end(JSON.stringify(records));
@@ -309,6 +283,7 @@ let DO_POST = (req, res) => {
                         HTTP404(req, res);
                         break;
                 }
+                DO_GET(req,res);
                 res.end();
 
             });
@@ -365,6 +340,7 @@ let DO_PUT = (req, res) => {
                         HTTP404(req, res);
                         break;
                 }
+                DO_GET(req,res);
                 res.end();
             });
             break;
@@ -408,6 +384,7 @@ let DO_DELETE = (req, res) => {
                         HTTP404(req, res);
                         break;
                 }
+                DO_GET(req,res);
                 res.end();
             });
             break;

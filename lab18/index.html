@@ -59,19 +59,19 @@
             container.innerHTML = '';
             container.innerHTML =
                 `<div>
-                    <label>
-                        <input name="newData" id="id" type="text" placeholder="Id">
-                    </label>
-                    <label>
-                        <input name="newData" id="name" type="text" placeholder="Name">
-                    </label>
-                    <label>
-                        <input name="newData" id="faculty" type="text" placeholder="Faculty Id">
-                    </label>
-                 </div>
-            <button onclick="submit()">Add</button>
-            <button onclick="submitup()">update</button>
-        `;
+<label>
+<input name="newData" id="id" type="text" placeholder="Id">
+</label>
+<label>
+<input name="newData" id="name" type="text" placeholder="Name">
+</label>
+<label>
+<input name="newData" id="faculty" type="text" placeholder="Faculty Id">
+</label>
+</div>
+<button onclick="submit()">Add</button>
+<button onclick="submitup()">update</button>
+`;
         });
     }
 
@@ -93,16 +93,16 @@
             container = document.getElementById("insert");
             container.innerHTML = '';
             container.innerHTML = `<div>
-            <label>
-                <input name="newData" id="id" type="text" placeholder="Id">
-            </label>
-            <label>
-                <input name="newData" id="name" type="text" placeholder="Name">
-            </label>
-        </div>
-        <button onclick="submit()">Add</button>
-        <button onclick="submitup()">update</button>
-        `;
+<label>
+<input name="newData" id="id" type="text" placeholder="Id">
+</label>
+<label>
+<input name="newData" id="name" type="text" placeholder="Name">
+</label>
+</div>
+<button onclick="submit()">Add</button>
+<button onclick="submitup()">update</button>
+`;
         });
     }
 
@@ -123,20 +123,22 @@
             });
             container = document.getElementById("insert");
             container.innerHTML = '';
-            container.innerHTML = `<div>
-            <label>
-                <input name="newData" id="id" type="text" placeholder="Id">
-            </label>
-            <label>
-                <input name="newData" id="name" type="text" placeholder="Name">
-            </label>
-            <label>
-                <input name="newData" id="pulpit" type="text" placeholder="Pulpit Id">
-            </label>
-        </div>
-        <button onclick="submit()">Add</button>
+            container.innerHTML =
+
+                `<div>
+<label>
+<input name="newData" id="id" type="text" placeholder="Id">
+</label>
+<label>
+<input name="newData" id="name" type="text" placeholder="Name">
+</label>
+<label>
+<input name="newData" id="pulpit" type="text" placeholder="Pulpit Id">
+</label>
+</div>
+<button onclick="submit()">Add</button>
 <button onclick="submitup()">update</button>
-        `;
+`;
         });
     }
 
@@ -158,22 +160,22 @@
             container = document.getElementById("insert");
             container.innerHTML = '';
             container.innerHTML = `<div>
-            <label>
-                <input name="newData" id="id" type="text" placeholder="Id">
-            </label>
-            <label>
-                <input name="newData" id="name" type="text" placeholder="Name">
-            </label>
-            <label>
-                <input name="newData" id="capacity" type="text" placeholder="Capacity">
-            </label>
-            <label>
-                <input name="newData" id="type" type="text" placeholder="Type Id">
-            </label>
-        </div>
-        <button onclick="submit()">Add</button>
+<label>
+<input name="newData" id="id" type="text" placeholder="Id">
+</label>
+<label>
+<input name="newData" id="name" type="text" placeholder="Name">
+</label>
+<label>
+<input name="newData" id="capacity" type="text" placeholder="Capacity">
+</label>
+<label>
+<input name="newData" id="type" type="text" placeholder="Type Id">
+</label>
+</div>
+<button onclick="submit()">Add</button>
 <button onclick="submitup()">update</button>
-        `;
+`;
         });
     }
 
@@ -195,16 +197,16 @@
             container = document.getElementById("insert");
             container.innerHTML = '';
             container.innerHTML = `<div>
-            <label>
-                <input name="newData" id="id" type="text" placeholder="Id">
-            </label>
-            <label>
-                <input name="newData" id="name" type="text" placeholder="Name">
-            </label>
-        </div>
-        <button onclick="submit()">Add</button>
+<label>
+<input name="newData" id="id" type="text" placeholder="Id">
+</label>
+<label>
+<input name="newData" id="name" type="text" placeholder="Name">
+</label>
+</div>
+<button onclick="submit()">Add</button>
 <button onclick="submitup()">update</button>
-        `;
+`;
         });
     }
 
@@ -215,6 +217,23 @@
         });
         let ID = Data.find(a => a.field === 'id').value;
         upsert(Data, ID);
+        switch (CurrentTable) {
+            case 'pulpits':
+                get_pulpit();
+                break;
+            case 'faculties':
+                get_faculty();
+                break;
+            case 'subjects':
+                get_subject();
+                break;
+            case 'auditoriums':
+                get_auditorium()
+                break;
+            case 'auditoriumstypes':
+                get_auditorium_type();
+                break;
+        }
     }
 
     function submit() {
@@ -224,6 +243,23 @@
         });
         let ID = Data.find(a => a.field === 'id').value;
         upsert(Data, ID);
+        switch (CurrentTable) {
+            case 'pulpits':
+                get_pulpit();
+                break;
+            case 'faculties':
+                get_faculty();
+                break;
+            case 'subjects':
+                get_subject();
+                break;
+            case 'auditoriums':
+                get_auditorium()
+                break;
+            case 'auditoriumstypes':
+                get_auditorium_type();
+                break;
+        }
     }
 
     function upsert(Data) {
@@ -233,7 +269,9 @@
                 row = {
                     PULPIT: Data.find(a => a.field === 'id').value,
                     PULPIT_NAME: Data.find(a => a.field === 'name').value,
-                    FACULTY: Data.find(a => a.field === 'faculty').value
+                    FACULTY:
+
+                    Data.find(a => a.field === 'faculty').value
                 };
                 break;
             case 'faculties':
@@ -275,6 +313,23 @@
     function deleteRecord(event) {
         if (confirm('Are you sure you want to remove this record?')) {
             fetch(api_path + CurrentTable + '/' + event.target.getAttribute('id'), {method: 'DELETE'})
+        }
+        switch (CurrentTable) {
+            case 'pulpits':
+                get_pulpit();
+                break;
+            case 'faculties':
+                get_faculty();
+                break;
+            case 'subjects':
+                get_subject();
+                break;
+            case 'auditoriums':
+                get_auditorium()
+                break;
+            case 'auditoriumstypes':
+                get_auditorium_type();
+                break;
         }
     }
 </script>
