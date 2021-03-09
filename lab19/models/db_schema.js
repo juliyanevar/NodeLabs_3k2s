@@ -82,9 +82,9 @@ function internalORM(sequelize) {
     )
 
     FACULTY.hasMany(PULPIT, {as: 'faculty_pulpits', foreignKey: 'FACULTY', sourceKey: 'FACULTY'});
-    TEACHER.belongsTo(PULPIT, {as: 'faculty_pulpits', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
+    TEACHER.belongsTo(PULPIT, {as: 'pulpit_teachers', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
     PULPIT.hasMany(TEACHER, {as: 'pulpit_teachers', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
-    PULPIT.belongsTo(FACULTY,{foreignKey: 'FACULTY', targetKey: 'FACULTY'});
+    PULPIT.belongsTo(FACULTY,{as: 'faculty_pulpits', foreignKey: 'FACULTY', targetKey: 'FACULTY'});
 };
 
 

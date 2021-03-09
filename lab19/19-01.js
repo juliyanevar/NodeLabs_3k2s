@@ -3,8 +3,7 @@ const app = express();
 const pulpitRouter = require("./routers/pulpitRouter.js");
 const facultyRouter = require("./routers/facultyRouter.js");
 const homeRouter = require("./routers/homeRouter.js");
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('NJV', 'sa', '123456', {host: 'DESKTOP-QCIHU10', dialect: 'mssql'});
+const sequelize = require("./db_connection.js");
 
 app.use("/pulpits", pulpitRouter);
 app.use("/faculties", facultyRouter);

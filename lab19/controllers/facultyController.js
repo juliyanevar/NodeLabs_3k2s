@@ -1,6 +1,5 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('NJV', 'sa', '123456', {host: 'DESKTOP-QCIHU10', dialect: 'mssql'});
-const {FACULTY, PULPIT, TEACHER, SUBJECT, AUDITORIUM_TYPE, AUDITORIUM}=require('C:\\Users\\Julia\\Documents\\учеба\\6 сем\\ПСКП\\NodeLabs_3k2s\\lab19\\models\\db_schema').ORM(sequelize);
+const sequelize = require("../db_connection.js");
+const {FACULTY, PULPIT, TEACHER, SUBJECT, AUDITORIUM_TYPE, AUDITORIUM}=require('..\\models\\db_schema').ORM(sequelize);
 
 exports.addFaculty = function (request, response){
     FACULTY.create({FACULTY: request.query.faculty, FACULTY_NAME: request.query.fname})
