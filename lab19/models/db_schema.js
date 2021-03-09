@@ -80,6 +80,11 @@ function internalORM(sequelize) {
         },
         {sequelize, modelName: 'AUDITORIUM', tableName: 'AUDITORIUM', timestamps: false}
     )
+
+    FACULTY.hasMany(PULPIT, {as: 'faculty_pulpits', foreignKey: 'FACULTY', sourceKey: 'FACULTY'});
+    TEACHER.belongsTo(PULPIT, {as: 'faculty_pulpits', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
+    PULPIT.hasMany(TEACHER, {as: 'pulpit_teachers', foreignKey: 'PULPIT', sourceKey: 'PULPIT'});
+    PULPIT.belongsTo(FACULTY,{foreignKey: 'FACULTY', targetKey: 'FACULTY'});
 };
 
 
@@ -88,7 +93,3 @@ exports.ORM = (s) => {
     internalORM(s);
     return {FACULTY, PULPIT, TEACHER, SUBJECT, AUDITORIUM_TYPE, AUDITORIUM};
 }
-
-// PULPIT.belongsTo(FACULTY,{foreignKey: 'FACULTY', targetKey: 'FACULTY'});
-// TEACHER.belongsTo(PULPIT, {foreignKey: 'PULPIT', targetKey: 'PULPIT'});
-
