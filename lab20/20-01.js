@@ -20,6 +20,7 @@ app.get('/', (req, res)=>{
         fadd: true
     });
 });
+
 app.get('/Add', (req, res)=>{
     res.render('index', {
         layout:null,
@@ -28,6 +29,7 @@ app.get('/Add', (req, res)=>{
         add: true
     });
 });
+
 app.get('/Update', (req, res)=>{
     res.render('index', {
         layout:null,
@@ -39,43 +41,16 @@ app.get('/Update', (req, res)=>{
 
 
 app.post('/Add', (req, res)=>{
-    console.log('add');
-
     DB.Add(req.body);
-
-    res.render('index', {
-        layout:null,
-        list: DB.GetAll(),
-        field: true,
-        add: true
-    });
 });
+
 app.post('/Update', async (req, res)=>{
-    console.log('up');
-
     await DB.Update(req.body);
-
-    res.render('index', {
-        layout:null,
-        field: true,
-        list: DB.GetAll(),
-        change: true
-    });
-});
-app.post('/Delete', (req, res)=>{
-    console.log('del');
-
-    DB.Delete(req.body.number);
-
-    res.render('index', {
-        layout:null,
-        field: true,
-        list: DB.GetAll(),
-        change: true
-    });
 });
 
-
+app.delete('/Delete', (req, res)=>{
+    DB.Delete(req.body.fio);
+});
 
 app.listen(PORT, () =>
 {

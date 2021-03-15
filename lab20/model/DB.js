@@ -3,13 +3,17 @@ let phoneNumbers = require('./data/phoneNumbers');
 
 function commit() {
     fs.writeFile(__dirname + '/data/phoneNumbers.json', JSON.stringify(phoneNumbers, null, '  '), err => {
-        if (err) {throw err;}
+        if (err) {
+            throw err;
+        }
     });
 }
 
-module.exports ={
-    GetAll: () => {return phoneNumbers},
-    Add(field){
+module.exports = {
+    GetAll: () => {
+        return phoneNumbers
+    },
+    Add(field) {
         const {fio, number} = field;
         if (fio && number) {
             phoneNumbers.push({
@@ -19,27 +23,27 @@ module.exports ={
             commit();
         }
     },
-    Update(field){
-        const {fio, number, oldNum} = field;
+    Update(field) {
+        const {fio, number, oldfio } = field;
 
-        if (fio, number, oldNum) {
-            let isNumber = phoneNumbers.find(phone => phone.number == oldNum);
-            if (!isNumber) {
+        if (fio && number) {
+            let isExist = phoneNumbers.find(phone => phone.fio == oldfio);
+            if (!isExist) {
                 throw new Error('Phone number is not exists');
             }
 
-            isNumber.fio = fio;
-            isNumber.number = number;
+            isExist.fio = fio;
+            isExist.number = number;
 
             commit();
         }
     },
-    Delete(number) {
-        let isNumber = phoneNumbers.find(phone => phone.number == number);
-        if (!isNumber) {
+    Delete(FIO) {
+        let isExist = phoneNumbers.find(phone => phone.fio == FIO);
+        if (!isExist) {
             throw new Error('Phone number is not exists');
         }
-        phoneNumbers = phoneNumbers.filter(phone => phone.number != number);
+        phoneNumbers = phoneNumbers.filter(phone => phone.fio != FIO);
         commit();
     }
 };
