@@ -4,8 +4,13 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.2.1",
+    "passport": "^0.4.1",
+    "passport-http": "^0.3.0",
     "redis": "^3.0.2",
     "sequelize": "^6.5.0",
     "tedious": "^11.0.4"
+  },
+  "devDependencies": {
+    "express-session": "^1.17.1"
   }
 }
