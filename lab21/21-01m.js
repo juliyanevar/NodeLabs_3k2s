@@ -1,8 +1,4 @@
-const Users = [
-    {user: 'user1', password: 'user1'},
-    {user: 'user2', password: 'user2'},
-    {user: 'user3', password: 'user3'}
-];
+const Users = require('./Users.json');
 
 const getCredential = (user)=>{
     let u = Users.find((e)=>{return e.user.toUpperCase() == user.toUpperCase(); });
