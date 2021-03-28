@@ -11,11 +11,9 @@ const session = require('express-session')(
 );
 
 passport.use(new DigestStrategy({qop: 'auth'}, (user, done) => {
-    let rc = null;
     let cr = getCredential(user);
-    if (!cr) rc = done(null, false);
-    else rc = done(null, cr.user, cr.password);
-    return rc;
+    if (!cr) done(null, false);
+    else done(null, cr.user, cr.password);
 }, (params, done) => {
     console.log('params = ', params);
     done(null, true);
@@ -44,7 +42,6 @@ app.get('/login', (req, res, next) => {
         next();
     }, passport.authenticate('digest', {session: false})
 ).get('/login', (req, res, next) => {
-    console.log('get-2');
     res.redirect('/resource');
 }).get('/resource', (req, res, next) => {
         if (req.session.logout == false && req.headers['authorization']) {
@@ -57,6 +54,7 @@ app.get('/login', (req, res, next) => {
 ).get('/logout', (req, res)=>{
     console.log('logout');
     req.session.logout = true;
+    delete req.headers['authorization'];
     res.redirect('/login');
 });
 

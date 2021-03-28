@@ -12,12 +12,10 @@ const session = require('express-session')(
 
 passport.use(new BasicStrategy((user, password, done) => {
     console.log('passport.use', user, password);
-    let rc = null;
     let cr = getCredential(user);
-    if (!cr) rc = done(null, false, {message: 'incorrect username'});
-    else if (!verPassword(cr.password, password)) rc = done(null, false, {message: 'incorrect password'});
-    else rc = done(null, user);
-    return rc;
+    if (!cr) done(null, false, {message: 'incorrect username'});
+    else if (!verPassword(cr.password, password)) done(null, false, {message: 'incorrect password'});
+    else done(null, user);
 }));
 
 passport.serializeUser((user, done) => {
@@ -59,6 +57,7 @@ app.get('/login', (req, res, next) => {
 ).get('/logout', function (req, res) {
     console.log('logout');
     req.session.logout = true;
+    delete req.headers['authorization'];
     res.redirect('/login');
 });
 
