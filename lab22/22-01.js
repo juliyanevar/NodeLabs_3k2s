@@ -26,10 +26,17 @@ passport.use(
 );
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '22-01.html');
+    res.sendFile(__dirname + '/22-01.html');
 });
 
-app.post('/login', passport.authenticate('local', {successRedirect: '/home', failureRedirect: '/login'}));
+app.post('/login', passport.authenticate('local', {successRedirect: '/resource', failureRedirect: '/login'}));
+
+app.get('/resource', (req, res, next)=>{
+    if(req.user) next();
+    else res.status(401).redirect('/login');  //res.status(401).send('ERROR 401: unauthorized access attempt').redirect('/login');
+}, (req, res)=>{
+    res.send('<h1>resource</h1><br /> <h4>Username: ${req.user.login} Age: ${req.user.age}</h4>');
+});
 
 app.get('/home',
     (req, res, next) => {
@@ -42,6 +49,10 @@ app.get('/home',
 app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
+});
+
+app.get('*', function(req, res){
+    res.status(404).send('ERROR 404: not found ' + req.url);
 });
 
 app.listen(3000, () => console.log('http://localhost:3000/login'));

@@ -38,4 +38,4 @@ app.get('/user', (req, res) => {
     else return res.status(401).json({message: 'Not authorized'});
 })
 
-app.listen(3000, () => console.log('http://localhost:3000/login'));
+app.listen(3000, () => console.log('http://localhost:3000/api/auth'));
