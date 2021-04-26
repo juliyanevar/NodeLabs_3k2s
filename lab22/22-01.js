@@ -8,7 +8,7 @@ const express = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({secret: 'your secret key'}));
+app.use(session({secret: '123'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,14 +37,6 @@ app.get('/resource', (req, res, next)=>{
 }, (req, res)=>{
     res.send(`<h1>RESOURCE   ${req.user.login}    ${req.user.age}</h1>`);
 });
-
-app.get('/home',
-    (req, res, next) => {
-        if (req.user) next();
-        else res.redirect('/login');
-    }, (req, res) => {
-        res.send(`Home page. You're authorized.<br /> Username: ${req.user.login} Age: ${req.user.age}`);
-    });
 
 app.get('/logout', (req, res) => {
     req.logout();
