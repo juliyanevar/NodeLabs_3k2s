@@ -33,9 +33,9 @@ app.post('/login', passport.authenticate('local', {successRedirect: '/resource',
 
 app.get('/resource', (req, res, next)=>{
     if(req.user) next();
-    else res.status(401).redirect('/login');  //res.status(401).send('ERROR 401: unauthorized access attempt').redirect('/login');
+    else res.status(401).redirect('/login');
 }, (req, res)=>{
-    res.send('<h1>resource</h1><br /> <h4>Username: ${req.user.login} Age: ${req.user.age}</h4>');
+    res.send(`<h1>RESOURCE   ${req.user.login}    ${req.user.age}</h1>`);
 });
 
 app.get('/home',
