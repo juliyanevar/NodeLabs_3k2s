@@ -42,7 +42,17 @@ app.get(
 );
 
 app.get('/resource', (req, res, next)=>{
-    if(req.user) res.status(200).send('RESOURCE '+ req.user._raw);
+    if(req.user) {
+        JSON.parse(JSON.stringify(req.user.emails), (key, value) => {
+
+            if (typeof key === 'email') {
+                return res.status(200).send('RESOURCE '+value);
+            }
+
+            return res.status(200).send('RESOURCE '+value);
+        });
+
+    }
     else res.redirect('/login');
 });
 
