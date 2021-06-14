@@ -19,27 +19,42 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ca4291c-071a-4909-828f-a173d0acf2e9" name="Default Changelist" comment="lab 22">
-      <change afterPath="$PROJECT_DIR$/lab24/24-01.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/Register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/Users.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/black-list.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/jwt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/role.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/user.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/userController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/userService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab24/users.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-01/26-01.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-01/26-01.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-01/26-01m.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-02/26-02.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-02/26-02.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab26/26-02/26-02m.js" afterDir="false" />
+    <list default="true" id="2ca4291c-071a-4909-828f-a173d0acf2e9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lab26/26-01c.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/26-01s.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/26-02c.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/26-02s.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/client/file.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/client/fileClientEncrypt.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/cryptoPipe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/file-2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/fileServer.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/fileServerEncrypt.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab26/sign.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab27/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab27/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab28/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/29-01/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/29-02/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/29-02/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/Source.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/command.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/source.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab29/source.wasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab30/development.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab30/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab31/db/data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab31/docs/swagger-config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab31/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab31/routes/ts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab23/23-01.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab23/23-01.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-01/26-01.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-01/26-01.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-01/26-01m.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab26/26-01m.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-02/26-02.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-02/26-02.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab26/26-02/26-02m.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -72,7 +87,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lab22/22-02" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lab27" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -85,32 +100,36 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab22\22-02" />
+      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab27" />
+      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab31" />
+      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab30" />
+      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab29" />
+      <recent name="C:\Users\Julia\Documents\study\6sem\ПСКП\NodeLabs_3k2s\lab28" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.23-01.js">
-    <configuration name="22-01.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab22/22-01.js" working-dir="$PROJECT_DIR$/lab22">
+  <component name="RunManager" selected="Node.js.index.js (2)">
+    <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab29/29-02/index.js" working-dir="$PROJECT_DIR$/lab29/29-02">
       <method v="2" />
     </configuration>
-    <configuration name="22-02.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab22/22-02/22-02.js" working-dir="$PROJECT_DIR$/lab22/22-02">
+    <configuration name="index.js (2)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab31/index.js" working-dir="$PROJECT_DIR$/lab31">
       <method v="2" />
     </configuration>
-    <configuration name="23-01.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab23/23-01.js" working-dir="$PROJECT_DIR$/lab23">
+    <configuration name="index.js (3)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab27/index.js" working-dir="$PROJECT_DIR$/lab27">
       <method v="2" />
     </configuration>
-    <configuration name="26-01.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab26/26-01/26-01.js" working-dir="$PROJECT_DIR$/lab26/26-01">
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab28/index.js" working-dir="$PROJECT_DIR$/lab28">
       <method v="2" />
     </configuration>
-    <configuration name="26-02.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab26/26-02/26-02.js" working-dir="$PROJECT_DIR$/lab26/26-02">
+    <configuration name="server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/lab30/server.js" working-dir="$PROJECT_DIR$/lab30">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.23-01.js" />
-        <item itemvalue="Node.js.26-02.js" />
-        <item itemvalue="Node.js.26-01.js" />
-        <item itemvalue="Node.js.22-01.js" />
-        <item itemvalue="Node.js.22-02.js (1)" />
+        <item itemvalue="Node.js.index.js (2)" />
+        <item itemvalue="Node.js.server.js" />
+        <item itemvalue="Node.js.index.js (3)" />
+        <item itemvalue="Node.js.index.js (1)" />
+        <item itemvalue="Node.js.index.js" />
       </list>
     </recent_temporary>
   </component>
@@ -161,6 +180,11 @@
       <workItem from="1619983208871" duration="3608000" />
       <workItem from="1620292062768" duration="3420000" />
       <workItem from="1620640323413" duration="6010000" />
+      <workItem from="1620720583030" duration="935000" />
+      <workItem from="1622376318215" duration="11188000" />
+      <workItem from="1622450919994" duration="2411000" />
+      <workItem from="1622620619074" duration="9194000" />
+      <workItem from="1622710098314" duration="1175000" />
     </task>
     <task id="LOCAL-00001" summary="lab17">
       <created>1612282082180</created>
@@ -295,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619431475862</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="begin lab 26">
+      <created>1620720937923</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1620720937923</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +358,8 @@
     <MESSAGE value="lab 21 fix" />
     <MESSAGE value="lab 23" />
     <MESSAGE value="lab 22" />
-    <option name="LAST_COMMIT_MESSAGE" value="lab 22" />
+    <MESSAGE value="begin lab 26" />
+    <option name="LAST_COMMIT_MESSAGE" value="begin lab 26" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -345,7 +377,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/lab23/23-01.js</url>
           <line>44</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

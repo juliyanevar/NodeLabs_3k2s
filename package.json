@@ -7,17 +7,24 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.1",
+    "jsonrpc-server-http-nats": "^0.1.14",
     "jsonwebtoken": "^8.5.1",
+    "node-telegram-bot-api": "^0.53.0",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "redis": "^3.0.2",
+    "request-promise": "^4.2.6",
     "sequelize": "^6.5.0",
-    "tedious": "^11.0.4"
+    "swagger-ui-express": "^4.1.6",
+    "tedious": "^11.0.4",
+    "telegraf": "^4.3.0",
+    "webdav": "^4.6.0"
   },
   "devDependencies": {
     "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "express-session": "^1.17.1",
     "passport-google-oauth20": "^2.0.0"
   }
